@@ -11,18 +11,20 @@ let reviews = [];
 
 // A. localStorage에 배열을 저장하는 함수
 function saveReviews() {
-  // 배열을 JSON 문자열로 변환하여 'reviewChestData' 키로 저장합니다.
-  localStorage.setItem('reviewChestData', JSON.stringify(reviews));
+  // ⚠️ 이 이름표를 Memo Page에 맞게 변경합니다.
+  localStorage.setItem('memoPageData', JSON.stringify(reviews)); 
+  //                              ^^^^^^^^^^^^^^
 }
 
 // B. localStorage에서 데이터를 불러오는 함수
 function loadReviews() {
-  const loadedData = localStorage.getItem('reviewChestData');
+  // ⚠️ 불러오는 이름표도 Memo Page에 맞게 변경합니다.
+  const loadedData = localStorage.getItem('memoPageData');
+  //                                       ^^^^^^^^^^^^^^
 
   if (loadedData) {
-    // JSON 문자열을 다시 배열로 변환합니다.
     reviews = JSON.parse(loadedData);
-    displayReviews(); // 불러온 후 바로 화면에 표시
+    displayReviews();
   }
 }
 
@@ -232,4 +234,5 @@ loadReviews();
 
 // ✨ 10. Enter 키 이벤트를 활성화합니다. (누락된 부분을 추가했습니다!)
 attachEnterKeyEvents();
+
 
