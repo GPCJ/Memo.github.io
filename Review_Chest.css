@@ -1,0 +1,239 @@
+/* Review_Chest.css (통합 및 최신 UI 반영) */
+
+/* --- 기본 설정 (기존 내용 유지) --- */
+body {
+  font-family: sans-serif;
+  background-color: #f4f4f9;
+  margin: 0;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.container {
+  width: 100%;
+  max-width: 600px;
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  color: #333;
+  text-align: center;
+  border-bottom: 2px solid #eee;
+  padding-bottom: 10px;
+}
+
+/* 입력 영역 스타일 (기존 내용 유지) */
+.input-area {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+#stream-title,
+#review-input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box; /* 패딩이 너비에 포함되도록 설정 */
+  font-size: 16px;
+}
+
+#review-input {
+  resize: vertical; /* 세로로만 크기 조절 허용 */
+  min-height: 100px;
+}
+
+#save-button {
+  background-color: #4caf50; /* 버튼 색상 (마인크래프트 잔디 블록 색상 느낌) */
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 18px;
+  transition: background-color 0.3s;
+}
+
+#save-button:hover {
+  background-color: #45a049;
+}
+
+/* --- 감상평 목록 및 액션 버튼 (핵심 수정 영역) --- */
+
+#review-list {
+  list-style: none;
+  padding: 0;
+}
+
+#review-list li {
+  background-color: #f9f9f9;
+  padding: 15px;
+  border-left: 5px solid #4caf50;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+
+  /* ✨ 1. Flexbox 설정: 내용과 버튼 그룹을 가로 배치 ✨ */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative; /* 버튼 그룹의 배치를 위해 유지 */
+  overflow: visible; /* 자식 요소(슬라이드 버튼)가 튀어나오게 하기 위해 */
+}
+
+.review-content {
+  flex-grow: 1; /* 내용이 가능한 모든 공간을 차지 */
+  margin-right: 20px; /* 버튼 그룹과의 간격 확보 */
+}
+
+/* --- 액션 버튼 그룹 (슬라이드 애니메이션 구현) --- */
+
+/* ✨ 2. 액션 그룹 컨테이너: ... 버튼과 숨겨진 버튼들을 감쌈 ✨ */
+.review-action-group {
+  position: relative;
+  width: 30px; /* ... 버튼의 너비와 일치 */
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end; /* ... 버튼을 오른쪽 끝에 정렬 */
+  z-index: 10; /* 내용 위로 올라오도록 */
+}
+
+/* ✨ 3. ... 버튼 (항상 보임) ✨ */
+.toggle-actions-button {
+  background-color: rgba(128, 128, 128, 0.5);
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s;
+  z-index: 12; /* 가장 앞에 위치 */
+}
+
+.toggle-actions-button:hover {
+  background-color: rgba(128, 128, 128, 0.8);
+}
+
+/* ✨ 4. 숨겨진 액션 버튼 컨테이너 ✨ */
+.action-buttons {
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+
+  /* 초기 상태: 완전히 투명하고, 오른쪽으로 밀려나 숨겨짐 */
+  opacity: 0;
+  transform: translateX(100%);
+  transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+  z-index: 11; /* ... 버튼과 내용 사이에 위치 */
+}
+
+/* ✨ 추가 ✨ : .active 클래스가 붙었을 때만 버튼이 나타나게 합니다. */
+.review-action-group.active .action-buttons {
+  opacity: 1; /* 불투명하게 나타남 */
+  transform: translateX(-40%); /* 원하는 슬라이드 위치 */
+}
+
+/* --- 수정/삭제 버튼 개별 스타일 (이전 absolute 스타일 제거) --- */
+.edit-button,
+.delete-button {
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.edit-button {
+  background-color: rgba(128, 128, 128, 0.8);
+  color: white;
+}
+
+.delete-button {
+  background-color: rgba(128, 128, 128, 0.8);
+  color: white;
+}
+
+/* Review_Chest.css (수정 모드 스타일 개선) */
+
+.edit-mode-content {
+  flex-grow: 1;
+  /* 수정 모드임을 시각적으로 구분하기 위한 내부 패딩/배경색 */
+  padding: 5px 10px;
+  border-radius: 5px;
+  margin-right: 15px; /* 액션 버튼과의 간격 유지 */
+}
+
+.edit-mode-content input,
+.edit-mode-content textarea {
+  width: 100%;
+  box-sizing: border-box;
+  /* 입력 필드 디자인 통일: 기존 #stream-title, #review-input과 유사하게 */
+  padding: 8px 10px; /* 패딩 증가 */
+  border: 1px solid; /* 수정 모드에 맞는 테두리 색상 */
+  border-radius: 5px;
+  margin-bottom: 8px; /* 입력 필드 사이 간격 */
+  font-size: 16px;
+}
+
+.edit-mode-content textarea {
+  min-height: 80px; /* 수정 textarea의 최소 높이 확보 */
+  resize: vertical;
+}
+
+/* 수정 모드 버튼 그룹 재배치 */
+/* 저장/취소 버튼이 우측 하단에 정렬되도록 li의 Flex 설정을 활용합니다. */
+.review-action-group {
+  /* 기존 스타일 유지 (토글 버튼을 위한 설정) */
+  position: relative;
+  width: auto; /* 수정 모드에서는 버튼 너비에 맞춰 유동적으로 변경 */
+  height: auto;
+
+  /* 수정 모드에서는 버튼들을 세로로 배치 */
+  flex-direction: column;
+  justify-content: flex-end; /* 버튼들을 아래쪽(세로 끝)으로 정렬 */
+
+  /* 토글 기능은 이제 필요 없으므로, 액션 버튼 그룹의 스타일을 덮어씌웁니다. */
+  /* 단, JS에서 innerHTML로 덮어쓰므로 토글 버튼 스타일은 신경쓰지 않아도 됩니다. */
+}
+
+/* 저장 및 취소 버튼 스타일 (edit-mode 전용) */
+.save-edit-button,
+.cancel-edit-button {
+  border: none;
+  padding: 8px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-top: 5px; /* 버튼 위 간격 */
+  white-space: nowrap;
+  width: 70px; /* 버튼 너비 고정 */
+  text-align: center;
+}
+
+.save-edit-button {
+  background-color: rgba(128, 128, 128, 0.8);
+  color: white;
+}
+
+.cancel-edit-button {
+  background-color: rgba(128, 128, 128, 0.8);
+  color: white;
+}
