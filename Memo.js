@@ -38,7 +38,7 @@ function displayReviews() {
 
     newListItem.innerHTML = `
             <div class="review-content">
-                <p><strong>방송 제목: ${review.title}</strong></p>
+                <p><strong>제목: ${review.title}</strong></p>
                 <p>내용: ${review.text}</p>
                 <small>${review.date}</small>
             </div>
@@ -232,3 +232,4 @@ loadReviews();
 
 // ✨ 10. Enter 키 이벤트를 활성화합니다. (누락된 부분을 추가했습니다!)
 attachEnterKeyEvents();
+
