@@ -13,14 +13,12 @@ let reviews = [];
 function saveReviews() {
   // ⚠️ 이 이름표를 Memo Page에 맞게 변경합니다.
   localStorage.setItem('memoPageData', JSON.stringify(reviews)); 
-  //                              ^^^^^^^^^^^^^^
 }
 
 // B. localStorage에서 데이터를 불러오는 함수
 function loadReviews() {
   // ⚠️ 불러오는 이름표도 Memo Page에 맞게 변경합니다.
   const loadedData = localStorage.getItem('memoPageData');
-  //                                       ^^^^^^^^^^^^^^
 
   if (loadedData) {
     reviews = JSON.parse(loadedData);
@@ -234,5 +232,6 @@ loadReviews();
 
 // ✨ 10. Enter 키 이벤트를 활성화합니다. (누락된 부분을 추가했습니다!)
 attachEnterKeyEvents();
+
 
 
