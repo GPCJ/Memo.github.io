@@ -43,10 +43,8 @@ function loadReviews() {
 function displayReviews() {
     reviewList.innerHTML = '';
 
-    // 배열을 역순으로 순회하며 추가 (최신 항목이 먼저 추가되므로 prepend 대신 append 사용)
     reviews.forEach((review, index) => {
         const newListItem = document.createElement('li');
-        // 배열 인덱스를 데이터 속성으로 저장
         newListItem.dataset.index = index; 
 
         newListItem.innerHTML = `
@@ -70,19 +68,18 @@ function displayReviews() {
     });
 
     attachDeleteEvents();
-    attachEditEvents(); // ✨✨ 이제 모달을 띄웁니다 ✨✨
+    attachEditEvents(); // ✨✨ PC/모바일 분리 로직 실행 ✨✨
     attachToggleEvents();
 }
+
 
 // D. 삭제 버튼에 클릭 이벤트를 연결하는 함수 (변동 없음)
 function attachDeleteEvents() {
     const deleteButtons = document.querySelectorAll('.delete-button');
-
     deleteButtons.forEach((button) => {
         button.addEventListener('click', function (event) {
             const listItem = event.target.closest('li');
             const indexToDelete = parseInt(listItem.dataset.index);
-
             reviews.splice(indexToDelete, 1);
             saveReviews();
             displayReviews();
@@ -90,7 +87,8 @@ function attachDeleteEvents() {
     });
 }
 
-// E. ✨✨ 수정 버튼에 클릭 이벤트를 연결하는 함수 (모달 호출로 변경) ✨✨
+
+// E. ✨✨ 수정 버튼에 클릭 이벤트를 연결하는 함수 (PC/모바일 분기) ✨✨
 function attachEditEvents() {
     const editButtons = document.querySelectorAll('.edit-button');
 
@@ -98,22 +96,70 @@ function attachEditEvents() {
         button.addEventListener('click', function (event) {
             const listItem = event.target.closest('li');
             const indexToEdit = parseInt(listItem.dataset.index);
+            const currentReview = reviews[indexToEdit];
             
-            // ✅ 인라인 수정 대신 모달을 띄우는 함수만 호출!
-            openEditModal(indexToEdit); 
+            // 600px 이하일 때 (모바일) 모달 사용
+            if (window.innerWidth <= 600) {
+                openEditModal(indexToEdit);
+            } else {
+                // 600px 초과일 때 (PC) 기존 인라인 수정 사용
+                handleInlineEdit(listItem, indexToEdit, currentReview);
+            }
         });
     });
+}
+
+
+// ✨✨ PC 환경에서 사용할 인라인 수정 로직 (기존 E 함수에서 분리) ✨✨
+function handleInlineEdit(listItem, indexToEdit, currentReview) {
+    // 2. 항목의 HTML을 입력 가능한 폼으로 변경 (편집 모드)
+    listItem.innerHTML = `
+        <div class="edit-mode-content">
+            <input type="text" class="edit-title" value="${currentReview.title}">
+            <textarea class="edit-text">${currentReview.text}</textarea>
+            <small>작성일: ${currentReview.date}</small>
+        </div>
+        <div class="review-action-group">
+            <button class="save-edit-button">저장</button>
+            <button class="cancel-edit-button">취소</button>
+        </div>
+    `;
+
+    // 3-1. 저장 버튼 이벤트
+    listItem
+        .querySelector('.save-edit-button')
+        .addEventListener('click', function () {
+            const newTitle = listItem.querySelector('.edit-title').value.trim();
+            const newText = listItem.querySelector('.edit-text').value.trim();
+
+            if (newTitle === '' || newText === '') {
+                alert('제목과 내용을 입력해주세요!');
+                return;
+            }
+
+            reviews[indexToEdit].title = newTitle;
+            reviews[indexToEdit].text = newText;
+            reviews[indexToEdit].date = new Date().toLocaleString(); // 수정 시간 업데이트
+
+            saveReviews();
+            displayReviews();
+        });
+
+    // 3-2. 취소 버튼 이벤트
+    listItem
+        .querySelector('.cancel-edit-button')
+        .addEventListener('click', function () {
+            displayReviews();
+        });
 }
 
 
 // F. ... 버튼에 클릭 이벤트를 연결하는 함수 (토글 기능 - 변동 없음)
 function attachToggleEvents() {
     const toggleButtons = document.querySelectorAll('.toggle-actions-button');
-
     toggleButtons.forEach((button) => {
         button.addEventListener('click', function (event) {
             const actionGroup = event.target.closest('.review-action-group');
-            // '수정' 버튼이 눌리면 모달이 뜨므로, 토글된 상태를 해제하지 않습니다.
             actionGroup.classList.toggle('active');
         });
     });
@@ -121,6 +167,7 @@ function attachToggleEvents() {
 
 // G. Enter 키 이벤트를 연결하는 함수 (변동 없음)
 function attachEnterKeyEvents() {
+    // ... (기존 코드 유지) ...
     streamTitleInput.addEventListener('keypress', function (event) {
         if (event.key === 'Enter') {
             event.preventDefault();
@@ -166,8 +213,8 @@ function openEditModal(index) {
     // 모달 표시
     editModal.classList.remove('modal-hidden');
     
-    // 모바일 환경에서 키보드가 화면을 가리지 않도록, body 스크롤을 막는 CSS 추가
-    document.body.style.overflow = 'hidden';
+    // body 스크롤을 막아 수정에 집중하도록 함
+    document.body.style.overflow = 'hidden'; 
 }
 
 // 모달을 닫는 함수
@@ -204,7 +251,7 @@ function saveModalEdit() {
 
 // --- 메인 이벤트 및 초기화 ---
 
-// 3. 저장 버튼 클릭 이벤트 핸들러 (경고 문구 변경)
+// 3. 저장 버튼 클릭 이벤트 핸들러 (변동 없음)
 saveButton.addEventListener('click', function () {
     const streamTitle = streamTitleInput.value.trim();
     const reviewText = reviewInput.value.trim();
@@ -248,9 +295,7 @@ modalCancelButton.addEventListener('click', closeEditModal);
 
 // 모달 외부 클릭 시 닫기
 editModal.addEventListener('click', (e) => {
-    // 모달 컨테이너 자체를 클릭했을 때만 닫기
     if (e.target.id === 'edit-modal') {
         closeEditModal();
     }
 });
-
