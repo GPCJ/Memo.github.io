@@ -88,7 +88,7 @@ function attachDeleteEvents() {
 }
 
 
-// E. ✨✨ 수정 버튼에 클릭 이벤트를 연결하는 함수 (PC/모바일 분기) ✨✨
+// E. 수정 버튼에 클릭 이벤트를 연결하는 함수 (PC/모바일 분기)
 function attachEditEvents() {
     const editButtons = document.querySelectorAll('.edit-button');
 
@@ -108,7 +108,6 @@ function attachEditEvents() {
         });
     });
 }
-
 
 // ✨✨ PC 환경에서 사용할 인라인 수정 로직 (기존 E 함수에서 분리) ✨✨
 function handleInlineEdit(listItem, indexToEdit, currentReview) {
@@ -299,3 +298,4 @@ editModal.addEventListener('click', (e) => {
         closeEditModal();
     }
 });
+
