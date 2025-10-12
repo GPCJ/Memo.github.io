@@ -20,9 +20,25 @@
 
       <h2>📜 보관된 감상평</h2>
       <ul id="review-list"></ul>
+    </div> 
+    
+    <div id="edit-modal" class="modal-hidden">
+        <div class="modal-content">
+            <h2>메모 수정</h2>
+            <input type="hidden" id="edit-modal-id"> 
+            
+            <input type="text" id="edit-modal-title" placeholder="제목">
+            <textarea id="edit-modal-text" placeholder="내용"></textarea>
+            
+            <div class="modal-actions">
+                <button id="modal-save-button" class="modal-button save">저장</button>
+                <button id="modal-cancel-button" class="modal-button cancel">취소</button>
+            </div>
+        </div>
     </div>
 
     <script src="Memo.js"></script>
   </body>
 </html>
+
 
