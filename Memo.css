@@ -295,17 +295,21 @@ h2 {
 
 /* 버전 태그 스타일 */
 .version-tag {
-  font-size: 14px; /* 작게 표시 */
-  color: #888; /* 회색으로 눈에 덜 띄게 */
-  margin-left: 10px; /* 제목과의 간격 */
-  font-weight: normal; /* h1의 굵은 글씨 무시 */
-  vertical-align: middle; /* 제목의 윗줄에 맞춤 */
+    /* ✨✨ 이 부분이 핵심: 굵은 글씨를 보통(normal)으로 강제 변경 ✨✨ */
+    font-weight: normal; 
+    
+    font-size: 14px; /* 작게 표시 (h1의 24px보다 우선) */
+    color: #888; /* 회색으로 눈에 덜 띄게 (h1의 #333보다 우선) */
+    margin-left: 10px; 
+    vertical-align: middle; 
 }
 
 /* 모바일 환경에서 폰트 크기 조정 */
 @media (max-width: 600px) {
-  /* 기존 모바일 CSS 블록 안에 추가하거나 아래에 추가합니다 */
-  .version-tag {
-    font-size: 16px; /* 모바일에서 조금 더 크게 */
-  }
+    /* 기존 모바일 CSS 블록 안에 추가하거나 아래에 추가합니다 */
+    .version-tag {
+        font-size: 16px; /* 모바일에서 조금 더 크게 */
+        /* 모바일 h1이 28px이므로 이 16px이 잘 적용될 것입니다. */
+    }
 }
+
