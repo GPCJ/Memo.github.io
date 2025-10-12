@@ -146,7 +146,7 @@ h2 {
   opacity: 0;
   transform: translateX(100%);
   transition: opacity 0.3s ease-out, transform 0.3s ease-out;
-  z-index: 11;
+  z-index: 15; 
 }
 
 .review-action-group.active .action-buttons {
@@ -199,6 +199,7 @@ h2 {
   height: auto;
   flex-direction: column;
   justify-content: flex-end;
+  z-index: 10;
 }
 
 /* ✨✨ 수정된 부분: 저장 및 취소 버튼 스타일 통일 ✨✨ */
@@ -425,4 +426,5 @@ h2 {
 .review-action-group { ... } 
 .save-edit-button, .cancel-edit-button { ... } 
 */
+
 
