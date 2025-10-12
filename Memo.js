@@ -90,7 +90,7 @@ function attachDeleteEvents() {
     });
 }
 
-// E. ✨✨ 수정 버튼에 클릭 이벤트를 연결하는 함수 (모달 호출) ✨✨
+// E. ✨✨ 수정 버튼에 클릭 이벤트를 연결하는 함수 (모달 호출로 변경) ✨✨
 function attachEditEvents() {
     const editButtons = document.querySelectorAll('.edit-button');
 
@@ -99,7 +99,7 @@ function attachEditEvents() {
             const listItem = event.target.closest('li');
             const indexToEdit = parseInt(listItem.dataset.index);
             
-            // 인라인 수정 대신 모달을 띄우는 함수 호출
+            // ✅ 인라인 수정 대신 모달을 띄우는 함수만 호출!
             openEditModal(indexToEdit); 
         });
     });
@@ -253,3 +253,4 @@ editModal.addEventListener('click', (e) => {
         closeEditModal();
     }
 });
+
