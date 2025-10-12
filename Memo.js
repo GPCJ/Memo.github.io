@@ -4,11 +4,15 @@ const reviewInput = document.querySelector('#review-input');
 const saveButton = document.querySelector('#save-button');
 const reviewList = document.querySelector('#review-list');
 
-// ✨✨ 모달 관련 새로운 요소 정의 추가 ✨✨
+
+// ✨✨ 모달 관련 새로운 요소 정의 (HTML ID와 일치하도록 수정) ✨✨
 const editModal = document.getElementById('edit-modal');
 const editModalTitle = document.getElementById('edit-modal-title');
 const editModalText = document.getElementById('edit-modal-text');
-const editModalIndex = document.getElementById('edit-modal-index'); // 인덱스 저장용
+
+// HTML: <input type="hidden" id="edit-modal-id"> 에 대응
+const editModalIndex = document.getElementById('edit-modal-id'); 
+
 const modalSaveButton = document.getElementById('modal-save-button');
 const modalCancelButton = document.getElementById('modal-cancel-button');
 
@@ -20,13 +24,11 @@ let reviews = [];
 
 // A. localStorage에 배열을 저장하는 함수
 function saveReviews() {
-    // ✅ Memo Page의 전용 키(금고 이름)를 사용합니다.
     localStorage.setItem('memoPageData', JSON.stringify(reviews));
 }
 
 // B. localStorage에서 데이터를 불러오는 함수
 function loadReviews() {
-    // ✅ Memo Page의 전용 키로 데이터를 불러옵니다.
     const loadedData = localStorage.getItem('memoPageData');
 
     if (loadedData) {
@@ -41,9 +43,11 @@ function loadReviews() {
 function displayReviews() {
     reviewList.innerHTML = '';
 
+    // 배열을 역순으로 순회하며 추가 (최신 항목이 먼저 추가되므로 prepend 대신 append 사용)
     reviews.forEach((review, index) => {
         const newListItem = document.createElement('li');
-        newListItem.dataset.index = index;
+        // 배열 인덱스를 데이터 속성으로 저장
+        newListItem.dataset.index = index; 
 
         newListItem.innerHTML = `
             <div class="review-content">
@@ -61,11 +65,12 @@ function displayReviews() {
             </div>
         `;
 
+        // 배열 순서대로 출력 (최신 항목을 맨 위로)
         reviewList.prepend(newListItem);
     });
 
     attachDeleteEvents();
-    attachEditEvents();
+    attachEditEvents(); // ✨✨ 이제 모달을 띄웁니다 ✨✨
     attachToggleEvents();
 }
 
@@ -85,7 +90,7 @@ function attachDeleteEvents() {
     });
 }
 
-// E. ✨✨ 수정 버튼에 클릭 이벤트를 연결하는 함수 (모달 호출로 변경) ✨✨
+// E. ✨✨ 수정 버튼에 클릭 이벤트를 연결하는 함수 (모달 호출) ✨✨
 function attachEditEvents() {
     const editButtons = document.querySelectorAll('.edit-button');
 
@@ -94,7 +99,8 @@ function attachEditEvents() {
             const listItem = event.target.closest('li');
             const indexToEdit = parseInt(listItem.dataset.index);
             
-            openEditModal(indexToEdit); // 인라인 수정 대신 모달 함수 호출
+            // 인라인 수정 대신 모달을 띄우는 함수 호출
+            openEditModal(indexToEdit); 
         });
     });
 }
@@ -107,6 +113,7 @@ function attachToggleEvents() {
     toggleButtons.forEach((button) => {
         button.addEventListener('click', function (event) {
             const actionGroup = event.target.closest('.review-action-group');
+            // '수정' 버튼이 눌리면 모달이 뜨므로, 토글된 상태를 해제하지 않습니다.
             actionGroup.classList.toggle('active');
         });
     });
@@ -203,12 +210,11 @@ saveButton.addEventListener('click', function () {
     const reviewText = reviewInput.value.trim();
 
     if (streamTitle === '' || reviewText === '') {
-        // ✅ 경고 문구 변경
         alert('제목과 내용을 모두 입력해주세요!');
         return;
     }
 
-    // 4. 새로운 메모 객체 생성 (이름은 그대로 review로 유지해도 무방)
+    // 4. 새로운 메모 객체 생성
     const newReview = {
         title: streamTitle,
         text: reviewText,
@@ -236,11 +242,11 @@ loadReviews();
 attachEnterKeyEvents();
 
 
-// 11. ✨✨ 모달 버튼 이벤트 리스너 연결 (파일 맨 아래에 추가) ✨✨
+// 11. ✨✨ 모달 버튼 이벤트 리스너 연결 ✨✨
 modalSaveButton.addEventListener('click', saveModalEdit);
 modalCancelButton.addEventListener('click', closeEditModal);
 
-// 모달 외부 클릭 시 닫기 (선택 사항)
+// 모달 외부 클릭 시 닫기
 editModal.addEventListener('click', (e) => {
     // 모달 컨테이너 자체를 클릭했을 때만 닫기
     if (e.target.id === 'edit-modal') {
