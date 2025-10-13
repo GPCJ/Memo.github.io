@@ -201,10 +201,6 @@ h1 {
     height: 40px;
   }
 
-  .review-action-group.active {
-    width: 200px; /* 모바일에서 더 넓게 확장 */
-  }
-
   .toggle-actions-button {
     width: 40px;
     height: 40px;
@@ -318,6 +314,6 @@ h1 {
 }
 
 .modal-button.cancel {
-  background-color: #f44336;
+  background-color: rgba(128, 128, 128, 0.5);
   color: white;
 }
