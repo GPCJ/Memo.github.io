@@ -2,221 +2,225 @@
 
 /* --- 기본 설정 --- */
 body {
-    font-family: sans-serif;
-    background-color: #f4f4f9;
-    margin: 0;
-    padding: 20px;
-    display: flex;
-    justify-content: center;
-    font-size: 16px; 
+  font-family: sans-serif;
+  background-color: #f4f4f9;
+  margin: 0;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  font-size: 16px;
 }
 
 .container {
-    width: 100%;
-    max-width: 600px;
-    background-color: #ffffff;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 600px;
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 h1 {
-    color: #333;
-    text-align: center;
-    border-bottom: 2px solid #eee;
-    padding-bottom: 10px;
-    font-size: 24px; 
+  color: #333;
+  text-align: center;
+  border-bottom: 2px solid #eee;
+  padding-bottom: 10px;
+  font-size: 24px;
 }
 
 /* 입력 영역 스타일 */
 .input-area {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
 }
 
 #stream-title,
 #review-input {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-sizing: border-box;
-    font-size: 16px; 
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+  font-size: 16px;
 }
 
 #review-input {
-    resize: vertical;
-    min-height: 100px;
+  resize: vertical;
+  min-height: 100px;
 }
 
 #save-button {
-    background-color: #4caf50;
-    color: white;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 18px; 
-    transition: background-color 0.3s;
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 18px;
+  transition: background-color 0.3s;
 }
 
 #save-button:hover {
-    background-color: #45a049;
+  background-color: #45a049;
 }
 
 /* --- 메모 목록 및 액션 버튼 --- */
 
 #review-list {
-    list-style: none;
-    padding: 0;
+  list-style: none;
+  padding: 0;
 }
 
 #review-list li {
-    background-color: #f9f9f9;
-    padding: 15px;
-    border-left: 5px solid #4caf50;
-    margin-bottom: 10px;
-    border-radius: 5px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: relative;
-    /* overflow: hidden을 사용해 확장 시 리스트 크기를 유지 */
-    overflow: hidden; 
+  background-color: #f9f9f9;
+  padding: 15px;
+  border-left: 5px solid #4caf50;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  /* overflow: hidden을 사용해 확장 시 리스트 크기를 유지 */
+  overflow: hidden;
 }
 
 .review-content {
-    flex-grow: 1;
-    margin-right: 20px;
+  flex-grow: 1;
+  margin-right: 20px;
 }
 
 /* --- ✨✨ 액션 버튼 그룹 (구조 개선) ✨✨ --- */
 
 .review-action-group {
-    /* 기본적으로 토글 버튼 크기만 차지 */
-    width: 30px; 
-    height: 30px;
-    transition: width 0.3s ease-out; 
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    gap: 5px;
-    flex-shrink: 0;
-    position: relative; /* 내부 버튼 위치 지정을 위해 relative 설정 */
+  /* 기본적으로 토글 버튼 크기만 차지 */
+  width: 30px;
+  height: 30px;
+  transition: width 0.3s ease-out;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 5px;
+  flex-shrink: 0;
+  position: relative; /* 내부 버튼 위치 지정을 위해 relative 설정 */
 }
 
 /* 토글 버튼이 눌렸을 때, action-group의 너비를 확장 */
 .review-action-group.active {
-    width: 150px; 
+  width: 150px;
 }
 
 .toggle-actions-button {
-    background-color: rgba(128, 128, 128, 0.5);
-    color: white;
-    font-weight: bold;
-    border: none;
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
-    font-size: 18px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background-color 0.3s;
-    /* 버튼을 Flexbox 시작점에 고정 */
-    position: absolute; 
-    right: 0; 
-    top: 50%;
-    transform: translateY(-50%);
+  background-color: rgba(128, 128, 128, 0.5);
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s;
+  /* 버튼을 Flexbox 시작점에 고정 */
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .action-buttons {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    /* 확장된 너비 내에서 토글 버튼 영역을 제외한 곳에 배치 */
-    margin-right: 35px; /* 토글 버튼 (30px) + 간격 (5px) */
-    white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  /* 확장된 너비 내에서 토글 버튼 영역을 제외한 곳에 배치 */
+  margin-right: 35px; /* 토글 버튼 (30px) + 간격 (5px) */
+  white-space: nowrap;
 }
 
 /* --- 수정/삭제 버튼 (토글시 보이는 버튼) --- */
 .edit-button,
 .delete-button {
-    border: none;
-    padding: 5px 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 14px;
-    background-color: rgba(128, 128, 128, 0.8);
-    color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  background-color: rgba(128, 128, 128, 0.8);
+  color: white;
+  display: none; /* 기본적으로 숨김 처리 */
+}
+
+.review-action-group.active .edit-button,
+.review-action-group.active .delete-button {
+  display: inline-block; /* none을 덮어씁니다. flex 아이템이므로 block이나 inline-block이 적절합니다. */
 }
 
 /* --- PC 인라인 수정 모드 (PC 환경에서만 사용) --- */
 .edit-mode-content {
-    flex-grow: 1;
-    margin-right: 15px;
+  flex-grow: 1;
+  margin-right: 15px;
 }
 
 .edit-mode-content input,
 .edit-mode-content textarea {
-    width: 100%;
-    box-sizing: border-box;
-    padding: 8px 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    margin-bottom: 8px;
-    font-size: 16px;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 8px;
+  font-size: 16px;
 }
 
 .save-edit-button,
 .cancel-edit-button {
-    border: none;
-    padding: 5px 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 14px;
-    margin-top: 5px;
-    white-space: nowrap;
-    background-color: rgba(128, 128, 128, 0.8);
-    color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-top: 5px;
+  white-space: nowrap;
+  background-color: rgba(128, 128, 128, 0.8);
+  color: white;
 }
-
 
 /* ---------------------------------------------------------------------- */
 /* --- ✨✨ 모바일 UI (600px 이하) ✨✨ --------------------------------- */
 /* ---------------------------------------------------------------------- */
 @media (max-width: 600px) {
-    /* 모바일 버튼 크기 조정 */
-    .review-action-group {
-        width: 40px; 
-        height: 40px;
-    }
-    
-    .review-action-group.active {
-        width: 200px; /* 모바일에서 더 넓게 확장 */
-    }
+  /* 모바일 버튼 크기 조정 */
+  .review-action-group {
+    width: 40px;
+    height: 40px;
+  }
 
-    .toggle-actions-button {
-        width: 40px;
-        height: 40px;
-        font-size: 22px;
-    }
-    
-    .action-buttons {
-        margin-right: 45px; /* 토글 버튼 (40px) + 간격 (5px) */
-    }
+  .review-action-group.active {
+    width: 200px; /* 모바일에서 더 넓게 확장 */
+  }
 
-    .edit-button,
-    .delete-button {
-        font-size: 18px;
-        padding: 8px 12px;
-    }
+  .toggle-actions-button {
+    width: 40px;
+    height: 40px;
+    font-size: 22px;
+  }
+
+  .action-buttons {
+    margin-right: 45px; /* 토글 버튼 (40px) + 간격 (5px) */
+  }
+
+  .edit-button,
+  .delete-button {
+    font-size: 18px;
+    padding: 8px 12px;
+  }
 }
-
 
 /* ---------------------------------------------------------------------- */
 /* --- ✨✨ 모달 CSS (근본적 숨김 및 UI) ✨✨ ------------------------- */
@@ -224,96 +228,96 @@ h1 {
 
 /* 모달 컨테이너 (JS 로드 전부터 숨김 처리) */
 #edit-modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.9);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000; 
-    overflow-y: auto;
-    padding: 20px;
-    
-    /* ⚠️ 근본적 해결: JS와 무관하게 기본적으로 숨김 처리 */
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s, visibility 0.3s;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  overflow-y: auto;
+  padding: 20px;
+
+  /* ⚠️ 근본적 해결: JS와 무관하게 기본적으로 숨김 처리 */
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s, visibility 0.3s;
 }
 
 /* JS가 모달을 표시할 때 사용할 클래스 */
 #edit-modal.modal-visible {
-    opacity: 1;
-    visibility: visible;
+  opacity: 1;
+  visibility: visible;
 }
 
 /* 모달 내용 컨테이너 */
 .modal-content {
-    background-color: #fff;
-    padding: 25px;
-    border-radius: 10px;
-    width: 100%;
-    max-width: 500px; 
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    min-height: 80vh; 
-    display: flex;
-    flex-direction: column;
-    box-sizing: border-box; 
+  background-color: #fff;
+  padding: 25px;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 500px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
 }
 
 .modal-content h2 {
-    /* 모달 내부 h2 스타일 조정 */
-    text-align: center;
-    color: #4caf50;
-    border-bottom: 1px solid #eee;
-    padding-bottom: 10px;
-    margin-top: 0;
-    font-size: 24px;
+  /* 모달 내부 h2 스타일 조정 */
+  text-align: center;
+  color: #4caf50;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
+  margin-top: 0;
+  font-size: 24px;
 }
 
 #edit-modal-title,
 #edit-modal-text {
-    width: 100%;
-    padding: 15px; 
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-sizing: border-box;
-    font-size: 18px; 
+  width: 100%;
+  padding: 15px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+  font-size: 18px;
 }
 
 #edit-modal-text {
-    flex-grow: 1; 
-    min-height: 200px;
-    resize: vertical;
+  flex-grow: 1;
+  min-height: 200px;
+  resize: vertical;
 }
 
 .modal-actions {
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
-    padding-top: 15px;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  padding-top: 15px;
 }
 
 .modal-button {
-    flex: 1;
-    padding: 15px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 20px; 
-    font-weight: bold;
-    transition: background-color 0.3s;
+  flex: 1;
+  padding: 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: bold;
+  transition: background-color 0.3s;
 }
 
 .modal-button.save {
-    background-color: #4caf50;
-    color: white;
+  background-color: #4caf50;
+  color: white;
 }
 
 .modal-button.cancel {
-    background-color: #f44336;
-    color: white;
+  background-color: #f44336;
+  color: white;
 }
