@@ -137,7 +137,6 @@ h1 {
 .action-buttons {
   display: flex;
   align-items: center;
-  gap: 5px;
   /* 확장된 너비 내에서 토글 버튼 영역을 제외한 곳에 배치 */
   margin-right: 35px; /* 토글 버튼 (30px) + 간격 (5px) */
   white-space: nowrap;
@@ -161,10 +160,30 @@ h1 {
   display: inline-block; /* none을 덮어씁니다. flex 아이템이므로 block이나 inline-block이 적절합니다. */
 }
 
+/* ⚠️ 핵심 수정 1: 인라인 수정 모드일 때 li의 자식들을 수직으로 쌓고 너비 꽉 채우기 */
+/* :has() 셀렉터를 사용하여 li가 인라인 수정 요소를 포함할 때만 스타일을 적용합니다. */
+#review-list li:has(.edit-mode-content) {
+  flex-direction: column; /* 가로(row) -> 수직(column)으로 변경 */
+  align-items: stretch; /* 자식 요소들이 li의 전체 너비를 꽉 채우도록 설정 */
+}
+
 /* --- PC 인라인 수정 모드 (PC 환경에서만 사용) --- */
 .edit-mode-content {
   flex-grow: 1;
-  margin-right: 15px;
+  margin-right: 0;
+  width: 100%;
+}
+
+/* ⚠️ 핵심 수정 2: 저장/취소 버튼 컨테이너(.review-action-group) 오버라이드 */
+/* 일반 .review-action-group의 제한적인 width와 height를 해제하고 한 줄을 차지하게 합니다. */
+/* 이 .review-action-group은 인라인 수정 시 Save/Cancel 버튼만 가지고 있습니다. */
+#review-list li:has(.edit-mode-content) > .review-action-group {
+  width: 100%;
+  height: auto; /* 고정 높이(30px) 해제 */
+  position: static; /* relative 포지션 해제 */
+
+  /* 인라인 수정 모드에서는 토글 관련 width/height transition이 필요 없으므로 재정의 */
+  transition: none;
 }
 
 .edit-mode-content input,
